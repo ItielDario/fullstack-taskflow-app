@@ -1,10 +1,27 @@
-version: '3.8' 
 
 networks:
   my-network:
     driver: bridge 
 
 services:
+
+  app:
+    container_name: fullstack-taskflow-app
+    networks:
+      - my-network
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - ${PORT_BACKEND}:5000
+    environment:
+      - PORT_BACKEND=${PORT_BACKEND}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+
   db:
     container_name: postgres_db 
     networks: 
