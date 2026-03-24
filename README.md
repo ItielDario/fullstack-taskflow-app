@@ -77,9 +77,20 @@ cp backend/.env.example backend/.env
 O `.env` padrão já vem pronto para o Docker:
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@db:5432/taskflow"
-PORT=5000
+# Node.js Environment
 NODE_ENV=development
+
+# PostgreSQL Database Configuration
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=taskflow-db
+
+# Database URL for Docker
+DATABASE_URL="postgresql://postgres:postgres@db:5432/taskflow-db?schema=public"
+
+# Server Configuration
+PORT_BACKEND=5000
+DATABASE_PORT=5432
 ```
 
 > ⚠️ O host `db` no `DATABASE_URL` é o nome do serviço do PostgreSQL no `docker-compose.yml`. Não troque por `localhost` ao rodar via Docker.
@@ -87,7 +98,7 @@ NODE_ENV=development
 **3. Suba todos os serviços**
 
 ```bash
-docker compose up --build
+docker-compose --env-file ./backend/.env up -d --build
 ```
 
 Esse comando irá subir o **banco de dados**, rodar as **migrations** automaticamente, iniciar o **backend** na porta `5000` e o **frontend** na porta `3000`.
@@ -103,10 +114,10 @@ Esse comando irá subir o **banco de dados**, rodar as **migrations** automatica
 
 ```bash
 # Apenas parar
-docker compose down
+docker-compose down
 
 # Parar e apagar os dados do banco
-docker compose down -v
+docker-compose down -v
 ```
 
 ---
@@ -127,7 +138,7 @@ docker compose down -v
 
 ```bash
 # Via Docker
-docker compose run --rm backend npm run test
+docker-compose run --rm backend npm run test
 
 # Localmente (dentro da pasta backend/)
 npm run test
