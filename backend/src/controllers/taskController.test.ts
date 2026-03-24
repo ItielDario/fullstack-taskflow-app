@@ -100,4 +100,14 @@ describe("POST /tasks", () => {
         expect(response.status).toBe(201)
         expect(response.body.completed).toBe(false)
     })
+
+    it("deve retornar 500 se o banco falhar", async () => {
+        mockCreate.mockRejectedValue(new Error("DB error"))
+    
+        const response = await request(app)
+            .post("/tasks")
+            .send({ title: "Comprar pão" })
+    
+        expect(response.status).toBe(500)
+    })
 })

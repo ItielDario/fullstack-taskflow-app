@@ -9,9 +9,13 @@ export async function createTaskController(req: Request, res: Response) {
         return
     }
 
-    const task = await createTask({
-        title,
-        description: description ?? null 
-    })
-    res.status(201).json(task)
+    try {
+        const task = await createTask({
+            title,
+            description: description ?? null,
+        })
+        res.status(201).json(task)
+    } catch {
+        res.status(500).json({ error: "Erro interno ao criar a tarefa" })
+    }
 }
