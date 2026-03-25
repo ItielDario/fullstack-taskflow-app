@@ -39,6 +39,12 @@ export async function getAllTasksController(_req: Request, res: Response) {
 export async function getTaskByIdController(req: Request, res: Response) {
     const { id } = req.params
 
+    // Se o id não existir ou não for string, para aqui
+    if (!id || typeof id !== 'string') {
+        res.status(400).json({ error: "ID inválido" })
+        return
+    }
+
     try {
         const task = await getTaskById(id)
 
@@ -56,6 +62,12 @@ export async function getTaskByIdController(req: Request, res: Response) {
 export async function updateTaskController(req: Request, res: Response) {
     const { id } = req.params
     const { title, description } = req.body as { title?: string; description?: string }
+
+    // Se o id não existir ou não for string, para aqui
+    if (!id || typeof id !== 'string') {
+        res.status(400).json({ error: "ID inválido" })
+        return
+    }
 
     if (!title || title.trim() === "") {
         res.status(400).json({ error: "O título é obrigatório" })
@@ -84,6 +96,12 @@ export async function updateTaskController(req: Request, res: Response) {
 export async function completeTaskController(req: Request, res: Response) {
     const { id } = req.params
 
+    // Se o id não existir ou não for string, para aqui
+    if (!id || typeof id !== 'string') {
+        res.status(400).json({ error: "ID inválido" })
+        return
+    }
+    
     try {
         const existing = await getTaskById(id)
 
@@ -106,6 +124,12 @@ export async function completeTaskController(req: Request, res: Response) {
 
 export async function deleteTaskController(req: Request, res: Response) {
     const { id } = req.params
+
+    // Se o id não existir ou não for string, para aqui
+    if (!id || typeof id !== 'string') {
+        res.status(400).json({ error: "ID inválido" })
+        return
+    }
 
     try {
         const existing = await getTaskById(id)
