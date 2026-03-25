@@ -1,6 +1,6 @@
 # 🗂️ taskflow
 
-> Aplicação fullstack de gerenciamento de tarefas construída para praticar desenvolvimento moderno com TypeScript, Prisma, Docker, PostgreSQL e GitHub Actions — desenvolvida com TDD usando Vitest.
+> Aplicação fullstack de gerenciamento de tarefas construída para praticar desenvolvimento moderno com TypeScript, Prisma ORM, Docker, PostgreSQL e GitHub Actions — desenvolvida com TDD usando Vitest.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?style=flat-square&logo=express&logoColor=white)
@@ -15,7 +15,7 @@
 
 ## 📌 Sobre o projeto
 
-O **taskflow** é um projeto de estudos pessoais para consolidar conhecimentos em ferramentas e práticas modernas de desenvolvimento. Possui um backend em Express com arquitetura MVC e um frontend em Next.js, tudo orquestrado via Docker Compose.
+O **taskflow** é um projeto para consolidar conhecimentos em ferramentas e práticas modernas de desenvolvimento. Possui um backend em Express com arquitetura MVC e um frontend em Next.js, tudo orquestrado via Docker Compose.
 
 ### 🎯 Tecnologias praticadas
 
@@ -47,8 +47,7 @@ taskflow/
 │   │   └── migrations/
 │   └── tests/
 ├── frontend/
-│   ├── src/
-│   │   ├── app/            # Rotas e páginas (Next.js App Router)
+│   ├── app/            # Rotas e páginas (Next.js App Router)
 │   │   └── components/     # Componentes reutilizáveis
 │   └── ...
 ├── docker-compose.yml
@@ -64,7 +63,7 @@ taskflow/
 **1. Clone o repositório**
 
 ```bash
-git clone https://github.com/seu-usuario/taskflow.git
+git clone https://github.com/ItielDario/fullstack-taskflow-app.git
 cd taskflow
 ```
 
@@ -72,30 +71,16 @@ cd taskflow
 
 ```bash
 cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env 
 ```
 
-O `.env` padrão já vem pronto para o Docker:
-
-```env
-# Node.js Environment
-NODE_ENV=development
-
-# PostgreSQL Database Configuration
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=taskflow-db
-
-# Database URL for Docker
-DATABASE_URL="postgresql://postgres:postgres@db:5432/taskflow-db?schema=public"
-
-# Server Configuration
-PORT_BACKEND=5000
-DATABASE_PORT=5432
-```
+Os `.env` padrões do frontend e do backend já vem pronto para o Docker
 
 > ⚠️ O host `db` no `DATABASE_URL` é o nome do serviço do PostgreSQL no `docker-compose.yml`. Não troque por `localhost` ao rodar via Docker.
 
 **3. Suba todos os serviços**
+
+Inicialize o docker (No Docker Desktop basta abrir o app)
 
 ```bash
 docker-compose --env-file ./backend/.env up -d --build
@@ -130,6 +115,7 @@ docker-compose down -v
 | `GET` | `/tasks/:id` | Busca uma tarefa por ID |
 | `POST` | `/tasks` | Cria uma nova tarefa |
 | `PUT` | `/tasks/:id` | Atualiza uma tarefa |
+| `PATCH` | `/tasks/:id/complete` | Maraca uma tarefa como concluída |
 | `DELETE` | `/tasks/:id` | Remove uma tarefa |
 
 ---
