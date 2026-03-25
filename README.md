@@ -80,7 +80,7 @@ Os `.env` padrões do frontend e do backend já vem pronto para o Docker
 
 **3. Suba todos os serviços**
 
-Inicialize o docker (No Docker Desktop basta abrir o app)
+Inicialize o docker (no Docker Desktop basta abrir o app)
 
 ```bash
 docker-compose --env-file ./backend/.env up -d --build
@@ -115,7 +115,7 @@ docker-compose down -v
 | `GET` | `/tasks/:id` | Busca uma tarefa por ID |
 | `POST` | `/tasks` | Cria uma nova tarefa |
 | `PUT` | `/tasks/:id` | Atualiza uma tarefa |
-| `PATCH` | `/tasks/:id/complete` | Maraca uma tarefa como concluída |
+| `PATCH` | `/tasks/:id/complete` | Marca uma tarefa como concluída |
 | `DELETE` | `/tasks/:id` | Remove uma tarefa |
 
 ---
